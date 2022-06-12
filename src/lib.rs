@@ -1,4 +1,4 @@
-#![deny(missing_docs, warnings)]
+#![deny(missing_docs)]
 
 //! A type-based key value store where one value type is allowed for each key.
 
@@ -24,7 +24,7 @@ use internals::Implements;
 /// be stored in this map. Usually, you are looking for `ShareMap`, which
 /// is `Send + Sync`.
 #[derive(Default, Debug)]
-pub struct TypeMap<A: ?Sized = UnsafeAny>
+pub struct TypeMap<A: ?Sized = dyn UnsafeAny>
 where A: UnsafeAnyExt {
     data: HashMap<TypeId, Box<A>>
 }
@@ -37,25 +37,25 @@ where A: UnsafeAnyExt, Box<A>: Clone { // We are a bit cleverer than derive.
 }
 
 /// A version of `TypeMap` containing only `Send` types.
-pub type SendMap = TypeMap<UnsafeAny + Send>;
+pub type SendMap = TypeMap<dyn UnsafeAny + Send>;
 
 /// A version of `TypeMap` containing only `Sync` types.
-pub type SyncMap = TypeMap<UnsafeAny + Sync>;
+pub type SyncMap = TypeMap<dyn UnsafeAny + Sync>;
 
 /// A version of `TypeMap` containing only `Send + Sync` types.
-pub type ShareMap = TypeMap<UnsafeAny + Send + Sync>;
+pub type ShareMap = TypeMap<dyn UnsafeAny + Send + Sync>;
 
 /// A version of `TypeMap` containing only `Clone` types.
-pub type CloneMap = TypeMap<CloneAny>;
+pub type CloneMap = TypeMap<dyn CloneAny>;
 
 /// A version of `TypeMap` containing only `Clone + Send + Sync` types.
-pub type ShareCloneMap = TypeMap<CloneAny + Send + Sync>;
+pub type ShareCloneMap = TypeMap<dyn CloneAny + Send + Sync>;
 
 /// A version of `TypeMap` containing only `Debug` types.
-pub type DebugMap = TypeMap<DebugAny>;
+pub type DebugMap = TypeMap<dyn DebugAny>;
 
 /// A version of `TypeMap` containing only `Debug + Send + Sync` types.
-pub type ShareDebugMap = TypeMap<DebugAny + Send + Sync>;
+pub type ShareDebugMap = TypeMap<dyn DebugAny + Send + Sync>;
 
 // Assert some properties on SyncMap, SendMap and ShareMap.
 fn _assert_types() {
@@ -175,7 +175,7 @@ impl<A: UnsafeAnyExt + ?Sized> TypeMap<A> {
 }
 
 /// A view onto an entry in a `TypeMap`.
-pub enum Entry<'a, K, A: ?Sized + UnsafeAnyExt + 'a = UnsafeAny> {
+pub enum Entry<'a, K, A: ?Sized + UnsafeAnyExt + 'a = dyn UnsafeAny> {
     /// A view onto an occupied entry in a TypeMap.
     Occupied(OccupiedEntry<'a, K, A>),
     /// A view onto an unoccupied entry in a TypeMap.
@@ -205,13 +205,13 @@ impl<'a, K: Key, A: ?Sized + UnsafeAnyExt + 'a> Entry<'a, K, A> {
 }
 
 /// A view onto an occupied entry in a `TypeMap`.
-pub struct OccupiedEntry<'a, K, A: ?Sized + UnsafeAnyExt + 'a = UnsafeAny> {
+pub struct OccupiedEntry<'a, K, A: ?Sized + UnsafeAnyExt + 'a = dyn UnsafeAny> {
     data: hash_map::OccupiedEntry<'a, TypeId, Box<A>>,
     _marker: PhantomData<K>
 }
 
 /// A view onto an unoccupied entry in a `TypeMap`.
-pub struct VacantEntry<'a, K, A: ?Sized + UnsafeAnyExt + 'a = UnsafeAny> {
+pub struct VacantEntry<'a, K, A: ?Sized + UnsafeAnyExt + 'a = dyn UnsafeAny> {
     data: hash_map::VacantEntry<'a, TypeId, Box<A>>,
     _marker: PhantomData<K>
 }

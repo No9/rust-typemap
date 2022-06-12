@@ -8,5 +8,5 @@ description = "A typesafe store for many value types."
 repository = "https://github.com/reem/rust-typemap"
 
 [dependencies]
-unsafe-any = "*"
+unsafe-any = { git = "https://github.com/No9/rust-unsafe-any" }
 
