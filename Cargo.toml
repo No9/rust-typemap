@@ -1,12 +1,11 @@
 [package]
 
-name = "typemap"
-version = "0.3.3"
-authors = ["Jonathan Reem <jonathan.reem@gmail.com>"]
+name = "typemap-ors"
+version = "1.0.0"
+authors = ["Jonathan Reem <jonathan.reem@gmail.com>", "Anton Whalley anton@venshare.com"]
 license = "MIT"
 description = "A typesafe store for many value types."
-repository = "https://github.com/reem/rust-typemap"
+repository = "https://github.com/orphanage-rs/rust-typemap"
 
 [dependencies]
-unsafe-any = { git = "https://github.com/No9/rust-unsafe-any" }
-
+unsafe-any-ors = "1.0.0"

@@ -1,4 +1,4 @@
-# `TypeMap`
+# typemap-ors [![CI](https://github.com/orphanage-rs/rust-typemap/actions/workflows/general.yaml/badge.svg)](https://github.com/orphanage-rs/rust-typemap/actions/workflows/general.yaml)
 
 > A typesafe store keyed by types and containing different types of values.
 
