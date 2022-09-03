@@ -1,8 +1,7 @@
 # typemap-ors [![CI](https://github.com/orphanage-rs/rust-typemap/actions/workflows/general.yaml/badge.svg)](https://github.com/orphanage-rs/rust-typemap/actions/workflows/general.yaml)
-
 > A typesafe store keyed by types and containing different types of values.
 
-## [Documentation](https://crates.fyi/crates/typemap/0.3.3)
+## Documentation
 
 It provides functionality similar to AnyMap, but is more flexible because it
 allows for key-value pairs, rather than enforcing that keys and values are the
